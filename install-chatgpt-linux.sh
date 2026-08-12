@@ -15,7 +15,7 @@ EXPECTED_SHA256="${CHATGPT_PACKAGE_SHA256:-}"
 DOWNLOAD_DIR="${CHATGPT_DOWNLOAD_DIR:-${HOME}/Downloads}"
 KEEP_PACKAGE=1
 LAUNCH_AFTER_INSTALL=0
-SETUP_IME=1
+SETUP_IME=0
 PRINT_URL=0
 TEMP_DIR=''
 
@@ -36,7 +36,7 @@ usage() {
   --sha256 HASH      驗證套件 SHA-256
   --download-dir DIR 保留下載檔的位置（預設：$DOWNLOAD_DIR）
   --no-keep          安裝後不保留本次下載的套件
-  --no-ime           不安裝／設定 IBus 新酷音與應用程式啟動包裝
+  --ime              安裝／設定 IBus 新酷音與 ChatGPT 相容啟動器
   --launch           安裝完成後啟動 ChatGPT
   --print-url        只顯示目前系統對應的官方下載網址
   -h, --help         顯示說明
@@ -84,7 +84,7 @@ while (($#)); do
       shift 2
       ;;
     --no-keep) KEEP_PACKAGE=0; shift ;;
-    --no-ime) SETUP_IME=0; shift ;;
+    --ime) SETUP_IME=1; shift ;;
     --launch) LAUNCH_AFTER_INSTALL=1; shift ;;
     --print-url) PRINT_URL=1; shift ;;
     -h|--help) usage; exit 0 ;;
@@ -256,19 +256,6 @@ ibus engine chewing >/dev/null 2>&1 || true
 exec /usr/bin/chatgpt --ozone-platform=x11 "$@"
 WRAPPER
   sudo install -m 0755 "$WRAPPER_TEMP" /usr/local/bin/chatgpt
-
-  if command -v google-chrome-stable >/dev/null 2>&1; then
-    info '建立 Google Chrome 的 IBus 相容啟動器'
-    CHROME_WRAPPER_TEMP="$TEMP_DIR/google-chrome-ibus"
-    sed 's#exec /usr/bin/chatgpt --ozone-platform=x11#exec /usr/bin/google-chrome-stable#' \
-      "$WRAPPER_TEMP" >"$CHROME_WRAPPER_TEMP"
-    sudo install -m 0755 "$CHROME_WRAPPER_TEMP" /usr/local/bin/google-chrome-ibus
-    if [[ -f /usr/share/applications/google-chrome.desktop ]]; then
-      sudo sed -i 's#^Exec=/usr/bin/google-chrome-stable#Exec=/usr/local/bin/google-chrome-ibus#' \
-        /usr/share/applications/google-chrome.desktop
-      sudo update-desktop-database /usr/share/applications 2>/dev/null || true
-    fi
-  fi
 
   ibus-daemon --daemonize --replace --xim --restart --panel=/usr/libexec/ibus-ui-gtk3
   sleep 2
