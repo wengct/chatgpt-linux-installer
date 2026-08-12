@@ -29,7 +29,7 @@
 使用 `raw.githubusercontent.com` 直接執行最新版安裝腳本：
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main/install-chatgpt-linux.sh)
+curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main/install-chatgpt-linux.sh | bash
 ```
 
 安裝完成後執行：
@@ -45,31 +45,31 @@ chatgpt
 只顯示目前系統對應的官方下載網址：
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main/install-chatgpt-linux.sh) --print-url
+curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main/install-chatgpt-linux.sh | bash -s -- --print-url
 ```
 
 安裝後立即啟動：
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main/install-chatgpt-linux.sh) --launch
+curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main/install-chatgpt-linux.sh | bash -s -- --launch
 ```
 
 安裝並設定 IBus／新酷音：
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main/install-chatgpt-linux.sh) --ime
+curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main/install-chatgpt-linux.sh | bash -s -- --ime
 ```
 
 安裝本機既有套件：
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main/install-chatgpt-linux.sh) --file /path/to/chatgpt.deb
+curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main/install-chatgpt-linux.sh | bash -s -- --file /path/to/chatgpt.deb
 ```
 
 以已知 SHA-256 驗證套件：
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main/install-chatgpt-linux.sh) --sha256 <64-character-sha256>
+curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main/install-chatgpt-linux.sh | bash -s -- --sha256 <64-character-sha256>
 ```
 
 ## 選項
