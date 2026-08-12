@@ -38,7 +38,7 @@ curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main
 chatgpt
 ```
 
-預設會將下載的安裝檔保留在 `~/Downloads`，且不會安裝或修改輸入法設定。
+安裝成功後會自動刪除下載的安裝檔，且預設不會安裝或修改輸入法設定。使用 `--file` 指定的本機套件不會被刪除。
 
 ## 常用範例
 
@@ -52,6 +52,12 @@ curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main/install-chatgpt-linux.sh | bash -s -- --launch
+```
+
+安裝後將下載的套件保留在 `~/Downloads`：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main/install-chatgpt-linux.sh | bash -s -- --keep
 ```
 
 安裝並設定 IBus／新酷音：
@@ -78,8 +84,8 @@ curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main
 --url URL          改用指定的 HTTPS 套件網址
 --file PATH        安裝本機既有的 .deb 或 .rpm
 --sha256 HASH      驗證套件 SHA-256
---download-dir DIR 保留下載檔的位置（預設：~/Downloads）
---no-keep          安裝後不保留本次下載的套件
+--download-dir DIR 搭配 --keep 使用的保留位置（預設：~/Downloads）
+--keep             安裝後保留下載的套件
 --ime              安裝／設定 IBus 新酷音與 ChatGPT 相容啟動器
 --launch           安裝完成後啟動 ChatGPT
 --print-url        只顯示目前系統對應的官方下載網址
@@ -90,7 +96,7 @@ curl -fsSL https://raw.githubusercontent.com/wengct/chatgpt-linux-installer/main
 
 - `CHATGPT_PACKAGE_URL`：自訂套件下載網址
 - `CHATGPT_PACKAGE_SHA256`：預期的 SHA-256
-- `CHATGPT_DOWNLOAD_DIR`：下載檔保留目錄
+- `CHATGPT_DOWNLOAD_DIR`：搭配 `--keep` 使用的下載檔保留目錄
 
 命令列選項會覆蓋對應的環境變數。
 

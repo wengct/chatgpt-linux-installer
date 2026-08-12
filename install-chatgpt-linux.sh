@@ -13,7 +13,7 @@ PACKAGE_URL="${CHATGPT_PACKAGE_URL:-}"
 PACKAGE_FILE=''
 EXPECTED_SHA256="${CHATGPT_PACKAGE_SHA256:-}"
 DOWNLOAD_DIR="${CHATGPT_DOWNLOAD_DIR:-${HOME}/Downloads}"
-KEEP_PACKAGE=1
+KEEP_PACKAGE=0
 LAUNCH_AFTER_INSTALL=0
 SETUP_IME=0
 PRINT_URL=0
@@ -34,8 +34,8 @@ usage() {
   --url URL          改用指定的 HTTPS 套件網址
   --file PATH        安裝本機既有的 .deb 或 .rpm
   --sha256 HASH      驗證套件 SHA-256
-  --download-dir DIR 保留下載檔的位置（預設：$DOWNLOAD_DIR）
-  --no-keep          安裝後不保留本次下載的套件
+  --download-dir DIR 搭配 --keep 使用的保留位置（預設：$DOWNLOAD_DIR）
+  --keep             安裝後保留下載的套件
   --ime              安裝／設定 IBus 新酷音與 ChatGPT 相容啟動器
   --launch           安裝完成後啟動 ChatGPT
   --print-url        只顯示目前系統對應的官方下載網址
@@ -83,7 +83,7 @@ while (($#)); do
       DOWNLOAD_DIR="$2"
       shift 2
       ;;
-    --no-keep) KEEP_PACKAGE=0; shift ;;
+    --keep) KEEP_PACKAGE=1; shift ;;
     --ime) SETUP_IME=1; shift ;;
     --launch) LAUNCH_AFTER_INSTALL=1; shift ;;
     --print-url) PRINT_URL=1; shift ;;
